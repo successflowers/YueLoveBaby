@@ -1,0 +1,44 @@
+//
+//  PrefixHeader.pch
+//  CP-Fitness
+//
+//  Created by 张敬 on 2017/10/26.
+//  Copyright © 2017年 Jing Zhang. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#pragma mark - 全局宏
+#import "UtilsMacros.h"
+#import "URLMacros.h"
+#import "CommonMacros.h"
+#import "FontAndColorMacros.h"
+#import "ThirdMacros.h"
+#import "AutoLayerMacros.h"
+
+#pragma mark - 控件
+#import "ZJJumpIndicator.h"
+#import "ZJTabBar.h"
+#import "ZJScrollTitleBar.h"
+
+#pragma mark - 基础类
+#import "AppDelegate+AppService.h"
+#import "ZJNetWorking.h"
+
+#pragma mark - 基础类别
+#import "NSDate+ZJDate.h"
+#import "UIImage+ZJImage.h"
+#import "CABasicAnimation+ZJAnimation.h"
+
+#pragma mark - VC
+#import "ZJMeViewController.h"
+#import "ZJHomeViewController.h"
+#import "ZJClassViewController.h"
+#import "ZJCircleViewController.h"
+#import "ZJShoppingViewController.h"
+#import "ZJMainTabBarViewController.h"
+
+#pragma mark - 第三方
+
+#endif /* PrefixHeader_pch */
