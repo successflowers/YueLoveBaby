@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		610D1AAB208D9044009ADD29 /* ZJScrollBodyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 610D1AAA208D9044009ADD29 /* ZJScrollBodyCollectionViewCell.m */; };
+		610D1AAE208D908A009ADD29 /* ZJScrollBodyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 610D1AAD208D908A009ADD29 /* ZJScrollBodyView.m */; };
 		610E629C2089F437002542FC /* AppDelegate+AppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 610E629A2089F437002542FC /* AppDelegate+AppService.m */; };
 		610E62A62089F4CC002542FC /* NSString+HmacUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 610E629F2089F4CC002542FC /* NSString+HmacUtils.m */; };
 		610E62A72089F4CC002542FC /* NSString+Signature.m in Sources */ = {isa = PBXBuildFile; fileRef = 610E62A12089F4CC002542FC /* NSString+Signature.m */; };
@@ -30,9 +32,14 @@
 		6112AA932089F05A000DCEE8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6112AA922089F05A000DCEE8 /* Assets.xcassets */; };
 		6112AA992089F05A000DCEE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6112AA982089F05A000DCEE8 /* main.m */; };
 		61A5F4EE208C2B7D0060BCCF /* ZJTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 61A5F4ED208C2B7D0060BCCF /* ZJTabBarItem.m */; };
+		61A5F4F2208C6A0E0060BCCF /* ZJNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 61A5F4F1208C6A0E0060BCCF /* ZJNavBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		610D1AA9208D9044009ADD29 /* ZJScrollBodyCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZJScrollBodyCollectionViewCell.h; sourceTree = "<group>"; };
+		610D1AAA208D9044009ADD29 /* ZJScrollBodyCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZJScrollBodyCollectionViewCell.m; sourceTree = "<group>"; };
+		610D1AAC208D908A009ADD29 /* ZJScrollBodyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZJScrollBodyView.h; sourceTree = "<group>"; };
+		610D1AAD208D908A009ADD29 /* ZJScrollBodyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZJScrollBodyView.m; sourceTree = "<group>"; };
 		610E629A2089F437002542FC /* AppDelegate+AppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+AppService.m"; sourceTree = "<group>"; };
 		610E629B2089F437002542FC /* AppDelegate+AppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+AppService.h"; sourceTree = "<group>"; };
 		610E629E2089F4CB002542FC /* NSString+Signature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Signature.h"; sourceTree = "<group>"; };
@@ -86,6 +93,8 @@
 		6112AA982089F05A000DCEE8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		61A5F4EC208C2B7D0060BCCF /* ZJTabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZJTabBarItem.h; sourceTree = "<group>"; };
 		61A5F4ED208C2B7D0060BCCF /* ZJTabBarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZJTabBarItem.m; sourceTree = "<group>"; };
+		61A5F4F0208C6A0E0060BCCF /* ZJNavBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZJNavBar.h; sourceTree = "<group>"; };
+		61A5F4F1208C6A0E0060BCCF /* ZJNavBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZJNavBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +108,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		610D1AA8208D8FF1009ADD29 /* ZJScrollBodyView */ = {
+			isa = PBXGroup;
+			children = (
+				610D1AA9208D9044009ADD29 /* ZJScrollBodyCollectionViewCell.h */,
+				610D1AAA208D9044009ADD29 /* ZJScrollBodyCollectionViewCell.m */,
+				610D1AAC208D908A009ADD29 /* ZJScrollBodyView.h */,
+				610D1AAD208D908A009ADD29 /* ZJScrollBodyView.m */,
+			);
+			path = ZJScrollBodyView;
+			sourceTree = "<group>";
+		};
 		610E62922089F33D002542FC /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,9 +159,11 @@
 		610E62952089F35C002542FC /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
-				610E62F8208B658B002542FC /* ZJTabbar */,
 				610E62C32089FC09002542FC /* ZJJumpIndicator */,
+				61A5F4EF208C69E20060BCCF /* ZJNavBar */,
+				610D1AA8208D8FF1009ADD29 /* ZJScrollBodyView */,
 				610E62BC2089FC09002542FC /* ZJScrollTitleBar */,
+				610E62F8208B658B002542FC /* ZJTabbar */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -342,6 +364,15 @@
 			path = YueLoveBaby;
 			sourceTree = "<group>";
 		};
+		61A5F4EF208C69E20060BCCF /* ZJNavBar */ = {
+			isa = PBXGroup;
+			children = (
+				61A5F4F0208C6A0E0060BCCF /* ZJNavBar.h */,
+				61A5F4F1208C6A0E0060BCCF /* ZJNavBar.m */,
+			);
+			path = ZJNavBar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -424,13 +455,16 @@
 				610E629C2089F437002542FC /* AppDelegate+AppService.m in Sources */,
 				6112AA992089F05A000DCEE8 /* main.m in Sources */,
 				610E62BB2089F8D7002542FC /* NSDate+ZJDate.m in Sources */,
+				61A5F4F2208C6A0E0060BCCF /* ZJNavBar.m in Sources */,
 				610E62D4208B0817002542FC /* CABasicAnimation+ZJAnimation.m in Sources */,
 				610E62E5208B0F81002542FC /* ZJMainTabBarViewController.m in Sources */,
 				610E62E8208B0FA3002542FC /* ZJHomeViewController.m in Sources */,
 				610E62B12089F590002542FC /* ZJNetWorking.m in Sources */,
 				610E62EE208B0FCA002542FC /* ZJCircleViewController.m in Sources */,
 				6112AA8B2089F055000DCEE8 /* AppDelegate.m in Sources */,
+				610D1AAE208D908A009ADD29 /* ZJScrollBodyView.m in Sources */,
 				610E62A62089F4CC002542FC /* NSString+HmacUtils.m in Sources */,
+				610D1AAB208D9044009ADD29 /* ZJScrollBodyCollectionViewCell.m in Sources */,
 				610E62C82089FC09002542FC /* ZJScrollTitleBarCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,6 +586,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57VQLPLW72;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -563,7 +598,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "success-flower.com.CP-Fitness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -571,6 +606,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57VQLPLW72;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -582,7 +618,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "success-flower.com.CP-Fitness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

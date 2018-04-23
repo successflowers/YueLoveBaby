@@ -20,7 +20,9 @@
 #pragma mark - 控件
 #import "ZJJumpIndicator.h"
 #import "ZJTabBar.h"
+#import "ZJNavBar.h"
 #import "ZJScrollTitleBar.h"
+#import "ZJScrollBodyView.h"
 
 #pragma mark - 基础类
 #import "AppDelegate+AppService.h"

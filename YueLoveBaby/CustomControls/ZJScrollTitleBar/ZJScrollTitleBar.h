@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, ZJScrollTitleBarStyle)
     ZJScrollTitleBarStyleVertical           //竖直
 };
 
-typedef void(^beClickedCellResponseBlock)(NSInteger index); //单元格选择响应回调
+typedef void(^scrollTitlebarBlock)(int oldPath , int newPath); //单元格选择响应回调
 
 @interface ZJScrollTitleBar : UIView
 @property (nonatomic, strong, readonly) NSArray *zjTiltleArray; //数据源
@@ -43,7 +43,7 @@ typedef void(^beClickedCellResponseBlock)(NSInteger index); //单元格选择响
 @property (nonatomic, strong) UIColor *zjScrollTitleBarItemBackgroundColor;//ZJScrollTitleBar.cell.backgroundcolor
 @property (nonatomic, strong) UIColor *zjScrollTitleBarItemSelectedBackgroundColor;
 @property (nonatomic) ZJScrollTitleBarStyle zjBarStyle;
-@property (nonatomic, copy) beClickedCellResponseBlock  block;
+@property (nonatomic, copy) scrollTitlebarBlock  block;
 //全能初始化方法
 - (instancetype) initWithTitle:(NSArray *)titleArr;
 

@@ -10,5 +10,6 @@
 #ifndef CommonMacros_h
 #define CommonMacros_h
 
+ //NSString *ZJScrollBodyViewSendMessage = @"ZJScrollBodyViewSendMessage";
 
 #endif /* CommonMacros_h */

@@ -16,7 +16,7 @@
        
         _zjLabel = [[UILabel alloc] init];
         _zjLabel.frame = self.bounds;
-       // _zjLabel.backgroundColor = [UIColor yellowColor];
+        _zjLabel.font = mFont(11);
         _zjLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_zjLabel];
     }

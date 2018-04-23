@@ -19,10 +19,8 @@
 -(void)initWindow{
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = KWhiteColor;
-    [self.window makeKeyAndVisible];
-    
     [self initUserManager];
-
+    [self.window makeKeyAndVisible];
 }
 
 #pragma mark ————— 初始化用户系统 —————

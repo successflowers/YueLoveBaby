@@ -30,12 +30,12 @@ typedef NS_ENUM(NSUInteger, ZJScrollIndicatorStyle)
     ZJScrollIndicatorStyleBackground,    //背景
 };
 
-typedef void(^scrollViewIndicatorMoveBlock)(NSString * scale);
+
 @interface ZJScrollIndicator : CAShapeLayer
 
 @property (nonatomic) ZJScrollIndicatorStyle zjScrollIndicatorStyle; //样式
 
-- (void)scrollIndicatorMoveWithFrom:(float)from to:(float)to scale:(float)scale callback:(scrollViewIndicatorMoveBlock)block;
+- (void)scrollIndicatorMoveWithFrom:(float)from to:(float)to scale:(float)scale;
 
 
 

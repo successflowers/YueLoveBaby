@@ -13,7 +13,7 @@
 
 @implementation ZJScrollIndicator
 #pragma mark - public medthods
-- (void)scrollIndicatorMoveWithFrom:(float)from to:(float)to scale:(float)scale callback:(scrollViewIndicatorMoveBlock)callback
+- (void)scrollIndicatorMoveWithFrom:(float)from to:(float)to scale:(float)scale
 {
     CABasicAnimation *scaleAin = nil;
     CABasicAnimation *moveAin = [[CABasicAnimation animation] moveXPositionWithFrom:from to:to];
@@ -33,7 +33,6 @@
         moveAin.fillMode = kCAFillModeForwards;
         [self addAnimation:moveAin forKey:@"moveAin"];
     }
-    callback(@"xxxxxxxxxx");
 }
 
 #pragma mark - private medthods

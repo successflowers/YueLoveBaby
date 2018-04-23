@@ -32,11 +32,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = KWhiteColor;
     [self configTabBarVC];
     [self configTabBar];
-   
+
     ZJTabBar *tab =  [[ZJTabBar alloc] init];
     tab.block = ^(int tag) {
        self.selectedViewController = self.viewControllers[tag];
@@ -80,6 +79,7 @@
     }
     return _controllsArr;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
