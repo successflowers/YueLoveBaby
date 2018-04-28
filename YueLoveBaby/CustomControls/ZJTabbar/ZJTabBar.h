@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+FOUNDATION_EXPORT NSString *const  ZJTabBarScrollViewTopNotification;
+FOUNDATION_EXPORT NSString *const  ZJTabBarScrollViewDownNotification;
+
 typedef void(^tabbarClickedBlock)(int tag);
 
 @interface ZJTabBar : UIView

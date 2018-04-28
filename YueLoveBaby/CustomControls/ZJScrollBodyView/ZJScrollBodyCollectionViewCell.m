@@ -9,12 +9,19 @@
 #import "ZJScrollBodyCollectionViewCell.h"
 #import "MyLayout.h"
 #import "ZJScrollTitleBarCell.h"
+
+extern NSString *const  ZJTabBarScrollViewTopNotification;
+extern NSString *const  ZJTabBarScrollViewDownNotification;
+
 static NSString *const zjContextCellIndefier = @"zjContextCellIndefier";
 static UICollectionViewFlowLayout *layout = nil;
 static ZJScrollTitleBarCell*contextCell = nil;
+static NSDictionary *dataDic = nil;
 
 @interface ZJScrollBodyCollectionViewCell()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic, strong) NSMutableDictionary *cellDic;
+@property (nonatomic, strong) YYFPSLabel *fpsLabel;
+@property (nonatomic, strong) NSMutableArray *layouts;
 
 @end
 @implementation ZJScrollBodyCollectionViewCell
@@ -26,10 +33,84 @@ static ZJScrollTitleBarCell*contextCell = nil;
         //self.backgroundColor = KWhiteColor;
 #warning 别忘了初始化哟
         self.cellDic = [[NSMutableDictionary alloc] init];
+        self.layouts = [NSMutableArray new];
         [self addSubview:self.zjContextCollectionView];
         [self action];
+        [self yyFPSlabel];
+        [self getNetWork];
     }
     return self;
+}
+
+- (void)getNetWork
+{
+    @weakify(self)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @strongify(self)
+
+        for (int i = 1; i <= 7; i++) {
+            NSData *data = [NSData dataNamed:[NSString stringWithFormat:@"weibo_%d.json",i]];
+            dataDic =[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            [self.layouts addObject:dataDic[@"statuses"]];
+            }
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            [self.zjContextCollectionView reloadData];
+        });
+    });
+}
+
+- (void)yyFPSlabel
+{
+    _fpsLabel = [YYFPSLabel new];
+    [_fpsLabel sizeToFit];
+    _fpsLabel.bottom = self.height - kWBCellPadding-100;
+    _fpsLabel.left = kWBCellPadding;
+    _fpsLabel.alpha = 0;
+    [self addSubview:_fpsLabel];
+}
+
+#pragma mark - scrollview.delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (_fpsLabel.alpha == 0) {
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.fpsLabel.alpha = 1;
+            NSLog(@"scrollViewWillBeginDragging");
+            
+        } completion:NULL];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        if (_fpsLabel.alpha != 0) {
+            [UIView animateWithDuration:1 delay:2 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                self.fpsLabel.alpha = 0;
+                NSLog(@"scrollViewDidEndDragging");
+                
+            } completion:NULL];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (_fpsLabel.alpha != 0) {
+        [UIView animateWithDuration:1 delay:2 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.fpsLabel.alpha = 0;
+            NSLog(@"scrollViewDidEndDecelerating");
+        } completion:NULL];
+    }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    if (_fpsLabel.alpha == 0) {
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.fpsLabel.alpha = 1;
+            NSLog(@"scrollViewDidScrollToTop");
+            
+        } completion:^(BOOL finished) {
+        }];
+    }
 }
 
 #pragma  mark - 下拉刷新
@@ -38,12 +119,12 @@ static ZJScrollTitleBarCell*contextCell = nil;
     self.zjContextCollectionView.mj_header = [ZJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
 }
 
-
 -(void)refresh
 {
     NSLog(@"refresh");
     [self.zjContextCollectionView.mj_header endRefreshing];
 }
+
 -(void)loadMore
 {
     NSLog(@"loadMore");
@@ -59,12 +140,13 @@ static ZJScrollTitleBarCell*contextCell = nil;
 #pragma mark - UICollection.delegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 4;
+    return self.layouts.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 100;
+    NSArray *array = self.layouts[section];
+    return array.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -82,8 +164,10 @@ static ZJScrollTitleBarCell*contextCell = nil;
     ZJScrollTitleBarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     cell.backgroundColor = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1];
 
+     NSArray *array = self.layouts[indexPath.section];
+    NSString *string = [array[indexPath.item] objectForKey:@"text"];
     
-    cell.zjLabel.text = self.textStr;
+    cell.zjLabel.text = [self.textStr stringByAppendingString:string];
     
     return cell;
 }
@@ -99,6 +183,34 @@ static ZJScrollTitleBarCell*contextCell = nil;
     }else{
         return CGSizeMake(100, 100);
     }
+}
+#pragma mark - notification methods
+//添加通知方法'
+- (void)didMoveToWindow {
+    if (self.window) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealScrollPositionTopAction:) name:ZJTabBarScrollViewTopNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealScrollPositionDownAction:) name:ZJTabBarScrollViewDownNotification object:nil];
+    }
+}
+
+//移除通知方法'
+- (void)willMoveToWindow:(UIWindow *)newWindow {
+    if (newWindow == nil) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:ZJTabBarScrollViewTopNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:ZJTabBarScrollViewDownNotification object:nil];
+    }
+}
+
+- (void)dealScrollPositionTopAction:(NSNotification *)sender
+{
+    NSIndexPath *aimIndexPath_ = [NSIndexPath indexPathForRow:3 inSection:2];
+    [self.zjContextCollectionView scrollToItemAtIndexPath:aimIndexPath_  atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
+}
+
+- (void)dealScrollPositionDownAction:(NSNotification *)sender
+{
+    NSIndexPath *aimIndexPath_ = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.zjContextCollectionView scrollToItemAtIndexPath:aimIndexPath_  atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
 }
 
 #pragma mark - setter and getter
@@ -126,10 +238,6 @@ static ZJScrollTitleBarCell*contextCell = nil;
         _zjContextCollectionView.delegate = self;
         _zjContextCollectionView.dataSource = self;
         _zjContextCollectionView.backgroundColor = KWhiteColor;
-//        _zjContextCollectionView.showsVerticalScrollIndicator = NO;
-//        _zjContextCollectionView.showsHorizontalScrollIndicator = NO;
-//        _zjContextCollectionView.pagingEnabled = YES;
-      //  [_zjContextCollectionView registerClass:[ZJScrollTitleBarCell class] forCellWithReuseIdentifier:zjContextCellIndefier];
     }
     return _zjContextCollectionView;
 }

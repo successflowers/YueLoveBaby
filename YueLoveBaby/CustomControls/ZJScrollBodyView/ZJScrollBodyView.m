@@ -35,7 +35,6 @@ static int oldPathRow = 0;
     return self;
 }
 
-
 - (void)layoutSubviews
 {
     [super layoutSubviews];

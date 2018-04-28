@@ -7,6 +7,7 @@
 //
 
 #import "ZJHomeViewController.h"
+
 NSString *const  ZJScrollBodyViewSendMessageNotification = @"ZJScrollBodyViewSendMessageNotification";
 NSString *const ZJScrollTitleSendMessageNotification = @"ZJScrollTitleSendMessageNotification";
 
@@ -14,6 +15,8 @@ NSString *const ZJScrollTitleSendMessageNotification = @"ZJScrollTitleSendMessag
 @property (nonatomic, strong) ZJNavBar *navBar;
 @property (nonatomic, strong) ZJScrollTitleBar *scrollTitleBar;
 @property (nonatomic, strong) ZJScrollBodyView *scrollBodyView;
+@property (nonatomic, strong) YYFPSLabel *fpsLabel;
+
 
 @property (nonatomic, strong) NSArray *zjTiltleArray;
 
@@ -24,14 +27,13 @@ NSString *const ZJScrollTitleSendMessageNotification = @"ZJScrollTitleSendMessag
 {
     [super viewWillAppear:animated];
     self.view.backgroundColor = mBackgroudColor;
-    [self.view addSubview:self.navBar];
-    [self.view addSubview:self.scrollBodyView];
-    [self.view addSubview:self.scrollTitleBar];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.view addSubview:self.navBar];
+    [self.view addSubview:self.scrollBodyView];
+    [self.view addSubview:self.scrollTitleBar];
     /*
     [[ZJNetWorking sharedInstance] userRegistWithUserModelCallBack:^(BOOL isSucessed, id outParam, NSString *eMsg) {
 
@@ -45,6 +47,60 @@ NSString *const ZJScrollTitleSendMessageNotification = @"ZJScrollTitleSendMessag
     
     [self test];
      */
+    [self yyFPSlabel];
+}
+
+- (void)yyFPSlabel
+{
+    _fpsLabel = [YYFPSLabel new];
+    [_fpsLabel sizeToFit];
+    _fpsLabel.bottom = self.view.height - kWBCellPadding-100;
+    _fpsLabel.left = kWBCellPadding;
+    _fpsLabel.alpha = 0;
+    [self.view addSubview:_fpsLabel];
+}
+
+#pragma mark - scrollview.delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (_fpsLabel.alpha == 0) {
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.fpsLabel.alpha = 1;
+            NSLog(@"scrollViewWillBeginDragging");
+
+        } completion:NULL];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        if (_fpsLabel.alpha != 0) {
+            [UIView animateWithDuration:1 delay:2 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                self.fpsLabel.alpha = 0;
+                NSLog(@"scrollViewDidEndDragging");
+
+            } completion:NULL];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (_fpsLabel.alpha != 0) {
+        [UIView animateWithDuration:1 delay:2 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.fpsLabel.alpha = 0;
+            NSLog(@"scrollViewDidEndDecelerating");
+        } completion:NULL];
+    }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    if (_fpsLabel.alpha == 0) {
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.fpsLabel.alpha = 1;
+            NSLog(@"scrollViewDidScrollToTop");
+
+        } completion:^(BOOL finished) {
+        }];
+    }
 }
 
 - (void)test

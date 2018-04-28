@@ -12,5 +12,6 @@
 @property (nonatomic, strong) UICollectionView *zjContextCollectionView;
 @property (nonatomic, strong) NSString *textStr;
 @property (nonatomic, strong) UILabel *zjLabel;
+@property (nonatomic, assign) int index;
 
 @end

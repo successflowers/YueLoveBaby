@@ -17,6 +17,7 @@
         _zjLabel = [[UILabel alloc] init];
         _zjLabel.frame = self.bounds;
         _zjLabel.font = mFont(11);
+        _zjLabel.numberOfLines = 0;
         _zjLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_zjLabel];
     }

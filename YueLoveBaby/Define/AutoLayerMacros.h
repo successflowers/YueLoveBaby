@@ -24,6 +24,8 @@
 #define Iphone6ScaleHeight      KScreenHeight/667.0
 #define kIOS7OffHeight          (kIOSVersions>=7.0 ? 64.0 : 0.0)
 
+#define kWBCellPadding 12.0f
+
 #pragma mark - 根据ip6的屏幕来拉伸
 #define kRealValue(with)    ((with)*(KScreenWidth/375.0f))
 

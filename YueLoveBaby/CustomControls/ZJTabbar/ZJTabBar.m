@@ -8,6 +8,10 @@
 
 #import "ZJTabBar.h"
 #import "ZJTabBarItem.h"
+
+ NSString *const  ZJTabBarScrollViewTopNotification = @"ZJTabBarScrollViewTopNotification";
+ NSString *const  ZJTabBarScrollViewDownNotification = @"ZJTabBarScrollViewDownNotification";
+
 static float const myTabBarHeight = 40.0f;
 
 @interface ZJTabBar()
@@ -162,9 +166,12 @@ static float const myTabBarHeight = 40.0f;
         _jumpIndicator.animationTime = 0.5f;
         _jumpIndicator.stateTopBlock = ^{
             NSLog(@"top");
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZJTabBarScrollViewTopNotification object:nil];
+
         };
         _jumpIndicator.stateDownBlock = ^{
             NSLog(@"down");
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZJTabBarScrollViewDownNotification object:nil];
         };
     }
     return _jumpIndicator;
