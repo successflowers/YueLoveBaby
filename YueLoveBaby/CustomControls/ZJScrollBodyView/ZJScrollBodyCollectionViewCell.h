@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ZJScrollBodyCollectionViewCell : UICollectionViewCell
-@property (nonatomic, strong) UITableView *mTableView;
+@property (nonatomic, strong) UICollectionView *zjContextCollectionView;
 @property (nonatomic, strong) NSString *textStr;
-
+@property (nonatomic, strong) UILabel *zjLabel;
 
 @end

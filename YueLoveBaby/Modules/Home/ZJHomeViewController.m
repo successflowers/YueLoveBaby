@@ -7,6 +7,8 @@
 //
 
 #import "ZJHomeViewController.h"
+NSString *const  ZJScrollBodyViewSendMessageNotification = @"ZJScrollBodyViewSendMessageNotification";
+NSString *const ZJScrollTitleSendMessageNotification = @"ZJScrollTitleSendMessageNotification";
 
 @interface ZJHomeViewController ()
 @property (nonatomic, strong) ZJNavBar *navBar;
@@ -25,10 +27,71 @@
     [self.view addSubview:self.navBar];
     [self.view addSubview:self.scrollBodyView];
     [self.view addSubview:self.scrollTitleBar];
-   // [self.view addSubview:self.scrollBodyView];
-
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    /*
+    [[ZJNetWorking sharedInstance] userRegistWithUserModelCallBack:^(BOOL isSucessed, id outParam, NSString *eMsg) {
+
+        if (isSucessed) {
+            NSLog(@"%@",outParam);
+        }else
+        {
+            NSLog(@"eMsg = %@",eMsg);
+        }
+    }];
+    
+    [self test];
+     */
+}
+
+- (void)test
+{
+    // 1.创建一个网络路径
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://groupapi.miyabaobei.com/age/index_banner"]];
+    
+    // 2.创建一个网络请求，分别设置请求方法、请求参数
+    
+    NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:url];
+   // [request setValue:@"text/html" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+    
+    request.HTTPMethod = @"POST";
+    
+    NSString *args = [NSString stringWithFormat:@"auth_session=9bcc4fcc292343407024008f03889947"];
+    
+    request.HTTPBody = [args dataUsingEncoding:NSUTF8StringEncoding];
+    
+    // 3.获得会话对象
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    // 4.根据会话对象，创建一个Task任务
+    
+    NSURLSessionDataTask *sessionDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        NSLog(@"从服务器获取到数据");
+        
+        /*
+         
+         对从服务器获取到的数据data进行相应的处理.
+         
+         */
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableLeaves) error:nil];
+        NSLog(@"xxxxxx   %@",dict);
+        
+    }];
+    
+    //5.最后一步，执行任务，(resume也是继续执行)。
+    
+    [sessionDataTask resume];
+
+}
 #pragma mark - setter and getter
 - (NSArray *)zjTiltleArray
 {
@@ -38,6 +101,7 @@
     }
     return _zjTiltleArray;
 }
+
 - (ZJScrollTitleBar *)scrollTitleBar
 {
     NSArray *array = self.zjTiltleArray;
@@ -50,10 +114,10 @@
         _scrollTitleBar.zjFontColor = [UIColor blueColor];
         _scrollTitleBar.zjFontColorSelected = mMainColor;
         _scrollTitleBar.block = ^(int oldPath, int newPath) {
-            NSLog(@" oldPath = %d, new = %d, ",oldPath, newPath);
+           // NSLog(@" oldPath = %d, new = %d, ",oldPath, newPath);
             NSDictionary *passDic = @{@"oldPath":[NSNumber numberWithInt:oldPath],
                                       @"newPath":[NSNumber numberWithInt:newPath]};
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZJScrollTitleSendMessage" object:passDic];
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZJScrollTitleSendMessageNotification object:passDic];
         };
     }
     return _scrollTitleBar;
@@ -66,10 +130,11 @@
         _scrollBodyView = [[ZJScrollBodyView alloc] initWithTitle:array];
         _scrollBodyView.frame = CGRectMake(0, 52+30, KScreenWidth, KScreenHeight - (52+30+40));
         _scrollBodyView.block = ^(int oldPath, int newPath) {
-            NSLog(@" oldPath = %d, new = %d, ",oldPath, newPath);
+             //NSLog(@" oldPath = %d, new = %d, ",oldPath, newPath);
             NSDictionary *passDic = @{@"oldPath":[NSNumber numberWithInt:oldPath],
                                       @"newPath":[NSNumber numberWithInt:newPath]};
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZJScrollBodyViewSendMessage" object:passDic];
+            //ZJScrollTitleSendMessageNotification
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZJScrollBodyViewSendMessageNotification object:passDic];
         };
     }
     return _scrollBodyView;
@@ -86,10 +151,6 @@
         };
     }
     return _navBar;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning {

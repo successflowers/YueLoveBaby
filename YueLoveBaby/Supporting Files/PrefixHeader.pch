@@ -23,10 +23,13 @@
 #import "ZJNavBar.h"
 #import "ZJScrollTitleBar.h"
 #import "ZJScrollBodyView.h"
+#import "ZJRefreshHeader.h"
 
 #pragma mark - 基础类
 #import "AppDelegate+AppService.h"
 #import "ZJNetWorking.h"
+#import "ZJNetWorkingHelper.h"
+#import "ZJNetWorking+Testing.h"
 
 #pragma mark - 基础类别
 #import "NSDate+ZJDate.h"
@@ -42,5 +45,7 @@
 #import "ZJMainTabBarViewController.h"
 
 #pragma mark - 第三方
+#import "MJRefresh.h"
+#import "AFNetworking.h"
 
 #endif /* PrefixHeader_pch */

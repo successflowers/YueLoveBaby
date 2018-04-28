@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate+AppService.h"
+#import "NumViewController.h"
 
 @implementation AppDelegate (AppService)
 

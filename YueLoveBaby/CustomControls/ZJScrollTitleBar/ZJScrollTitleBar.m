@@ -10,6 +10,8 @@
 #import "ZJScrollIndicator.h"
 #import "ZJScrollTitleBarCell.h"
 
+extern NSString *const ZJScrollBodyViewSendMessageNotification;
+
 static NSString *const cellIndefier = @"cellIndefier";
 static UICollectionViewFlowLayout *layout = nil;
 static NSArray *layouts = nil;
@@ -88,7 +90,7 @@ static  NSIndexPath *oldPath = nil;
     
     aimsPathRow = indexPath.row;
     oldPath = indexPath;
-    [_zjCollectionView reloadData];
+    [self.zjCollectionView reloadData];
 }
 #pragma mark - collectionViewLayout.delegate
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -101,14 +103,14 @@ static  NSIndexPath *oldPath = nil;
 //添加通知方法'
 - (void)didMoveToWindow {
     if (self.window) {
-         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealScrollBodyAction:) name:@"ZJScrollBodyViewSendMessage" object:nil];
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealScrollBodyAction:) name:ZJScrollBodyViewSendMessageNotification object:nil];
     }
 }
 
 //移除通知方法'
 - (void)willMoveToWindow:(UIWindow *)newWindow {
     if (newWindow == nil) {
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZJScrollBodyViewSendMessage" object:nil];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:ZJScrollBodyViewSendMessageNotification object:nil];
     }
 }
 

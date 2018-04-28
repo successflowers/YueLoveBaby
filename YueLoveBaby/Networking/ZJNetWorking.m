@@ -8,12 +8,12 @@
 
 #import "ZJNetWorking.h"
 
+static BOOL flag;
+static id result;
+static NSString *eMsg;
+
 @interface ZJNetWorking()
-{
-    BOOL _flag;
-    id _result;
-    NSString *_eMsg;
-}
+
 @end
 
 @implementation ZJNetWorking
@@ -31,32 +31,34 @@
 #pragma mark ----- public methods ------
 - (void)getResponseDataWithUrl:(NSString *)urlStr parameter:(NSDictionary*) parameters callBack:(BusinessOperationCallback)callBack
 {
-   /* [ZJNetWorkingHelper postJsonWithUrl:urlStr parameter:parameters
+    
+    [ZJNetWorkingHelper  postJsonWithUrl:urlStr parameter:parameters
                                 success:^(NSDictionary *responseObject){
                                     
-                                    _flag = NO;_result = nil;_eMsg = nil;
+                                    flag = NO;result = nil;eMsg = nil;
                                     if (responseObject)
                                     {
                                         long errnoNumber = [[responseObject objectForKey:@"errno"] longValue];
                                         if (errnoNumber == 0){
-                                            _flag = YES;
-                                            _result = responseObject;
+                                            flag = YES;
+                                            result = responseObject;
                                             //DDLog(@"success  %@",responseObject);
                                         }
                                     }else{
-                                        _eMsg = @"数据异常";
+                                        eMsg = @"数据异常";
                                         DDLog(@"%@",[responseObject objectForKey:@"errmsg"]);
                                     }
-                                    callBack(_flag,_result,_eMsg);
+                                    callBack(flag,result,eMsg);
                                 }
                                    fail:^(NSError *error){
                                        if (error){
-                                           _eMsg = [NSString stringWithFormat:@"%@",error];
+                                           eMsg = [NSString stringWithFormat:@"%@",error];
                                            DDLog(@"%@",error);
                                        }
-                                       callBack(_flag,_result,_eMsg);
+                                       callBack(flag,result,eMsg);
                                    }
-    ];*/ 
+    ];
 }
+
 
 @end

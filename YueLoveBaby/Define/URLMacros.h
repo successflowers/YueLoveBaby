@@ -10,14 +10,57 @@
 #ifndef URLMacros_h
 #define URLMacros_h
 
+ /*
+ https://groupapi.miyabaobei.com/age/index_banner/
+ 
+ app_id=ios_test_id
+ &auth_session=9bcc4fcc292343407024008f03889947
+ &bi_session_id=B5A28B8C-5D2A-4392-8288-462C5D2A43A14744181631768655760
+ &channel_code=
+ &device_token=
+ 
+ &dvc_id=B5A28B8C-5D2A-4392-8288-462C5D2A43A1
+ &ios_idfa=D027F887-0570-4EF7-8FC4-22207E6A1907
+ &ios_mac=02%3A00%3A00%3A00%3A00%3A00
+ &ios_openudid=2adc797a0439d4984a20ffff5defa4d0e670c4e2
+ &ios_uuid=19BB2773-DE1F-445E-A777-A6980F259D0C
+ 
+ &no_encrypt=0
+ &params=
+ &regid=
+ &session=19BB2773-DE1F-445E-A777-A6980F259D0C
+ &sign=9cbaf58a29b2aad1870cc6e2211e84ee
+ &timestamp=1524644798
+ &version=ios_6_1_5
+ */
+
 #pragma mark ------- Secret -------
-#define App_Key @"100004"
-#define APP_Secret @"83af706573907c3800ffa0a53b6afd2f"
-#define APP_Authorization @"coolplay-auth-v1"
-#define APP_Channel @"coolplayhrcoach001"
+#define APP_Version @"ios_6_1_5"
+#define APP_ID @"ios_test_id"
+#define APP_Auth_Session @"9bcc4fcc292343407024008f03889947"
+#define APP_Bi_Session_Id @"B5A28B8C-5D2A-4392-8288-462C5D2A43A14744181631768655760"
+#define APP_Channel_Code @""
+#define APP_Device_Token @""
+
+#define App_Dvc_Id @"B5A28B8C-5D2A-4392-8288-462C5D2A43A1"
+#define APP_Ios_Idfa @"D027F887-0570-4EF7-8FC4-22207E6A1907"
+#define APP_Ios_Mac @"02%3A00%3A00%3A00%3A00%3A00"
+#define APP_Ios_Openudid @"2adc797a0439d4984a20ffff5defa4d0e670c4e2"
+#define APP_Ios_Uuid @"19BB2773-DE1F-445E-A777-A6980F259D0C"
+#define APP_No_encrypt @"0"
+#define APP_Params @""
+#define APP_Regid @""
+#define APP_TimeStamp @"1524644798"
+#define APP_Session @"19BB2773-DE1F-445E-A777-A6980F259D0C"
+#define APP_Sign @"9cbaf58a29b2aad1870cc6e2211e84ee"
 
 #pragma mark ------- Server --------
-#define URL_Server  @"http://srv.coolplay.tv:8086" //服务器地址
+#define URL_Server  @"https://groupapi.miyabaobei.com" //服务器地址
+
+#pragma mark ------- Age ----------
+#define URL_Age @"/age/index_banner"
+
+#define URL_Banner @"/banner/listsExt"
 
 
 #pragma mark ------- User_LoginOrRegister -------

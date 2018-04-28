@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+FOUNDATION_EXPORT NSString *const  ZJScrollBodyViewSendMessageNotification;
+FOUNDATION_EXPORT NSString *const  ZJScrollTitleSendMessageNotification;
+
 @interface ZJHomeViewController : UIViewController
 
 @end
